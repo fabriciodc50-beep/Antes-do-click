@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Antes do Primeiro Clique · Lumiar Retratos</title>
+<meta name="description" content="Como funciona a Experiência Lumiar, antes da câmera entrar em cena.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF9F6; --card:#FFFFFF; --ink:#161513; --soft:#5A574F;
+  --gold:#8a6d3f; --gilt:#C7A96B; --line:#E2DED4; --mute:#8A867D; --wash:#F4F1E9;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-weight:300;font-size:15px;line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+
+/* ---------- topo ---------- */
+#top{
+  position:sticky;top:0;z-index:40;background:rgba(250,249,246,.94);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+}
+#top .bar{max-width:720px;margin:0 auto;padding:13px 22px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+#top .mark{font-family:var(--serif);font-size:17px;letter-spacing:.06em}
+#top .mark small{display:block;font-family:var(--sans);font-size:7.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-top:-2px}
+#top .nicho{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute);text-align:right}
+#prog{height:2px;background:var(--gilt);width:0%;transition:width .15s linear}
+
+/* ---------- estrutura ---------- */
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+section{padding:52px 0;border-bottom:1px solid var(--line);scroll-margin-top:58px}
+section:last-of-type{border-bottom:0}
+.eyebrow{font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin:0 0 10px}
+h2{font-family:var(--serif);font-weight:500;font-size:29px;line-height:1.12;margin:0 0 10px;letter-spacing:.005em}
+h3{font-family:var(--serif);font-weight:500;font-size:20px;margin:26px 0 6px}
+p{margin:0 0 15px}
+.lead{font-size:16.5px;color:var(--ink)}
+em.kick{font-family:var(--serif);font-style:italic;font-size:19px;color:var(--soft);display:block;margin:0 0 22px}
+strong{font-weight:500}
+ul{margin:0 0 15px;padding-left:19px}
+li{margin-bottom:7px}
+
+/* ---------- capa ---------- */
+#capa{padding:0 0 46px;border-bottom:1px solid var(--line)}
+.hero{position:relative;background:var(--wash);aspect-ratio:4/5;max-height:70vh;overflow:hidden}
+.hero img{width:100%;height:100%;object-fit:cover}
+.hero .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,21,19,0) 38%,rgba(22,21,19,.72) 100%)}
+.hero .tt{position:absolute;left:0;right:0;bottom:0;padding:26px 22px}
+.hero .tt .ey{font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--gilt);margin-bottom:7px}
+.hero h1{font-family:var(--serif);font-weight:500;font-size:38px;line-height:1.04;color:#FAF9F6;margin:0}
+.hero .sub{font-family:var(--serif);font-style:italic;font-size:19px;color:#E4DFD3;margin-top:6px}
+.hero.vazia .veil{background:linear-gradient(180deg,rgba(22,21,19,.15) 0%,rgba(22,21,19,.78) 100%)}
+#capa .abaixo{padding:26px 22px 0;max-width:720px;margin:0 auto}
+#capa .abaixo p{font-size:16.5px}
+
+/* ---------- blocos ---------- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:19px 20px;margin-bottom:11px}
+.card h4{font-family:var(--serif);font-weight:500;font-size:18px;margin:0 0 4px}
+.card p{margin:0;font-size:14px;color:var(--soft)}
+
+.quote{
+  font-family:var(--serif);font-size:22px;line-height:1.42;color:var(--ink);
+  border-left:2px solid var(--gilt);padding:4px 0 4px 20px;margin:26px 0;
+}
+.selo{background:var(--wash);border-radius:13px;padding:20px;margin:22px 0}
+.selo .t{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:7px}
+.selo p{margin:0;font-size:14px;color:var(--soft)}
+
+.passos{counter-reset:p}
+.passo{display:grid;grid-template-columns:30px 1fr;gap:15px;padding:15px 0;border-bottom:1px solid var(--line)}
+.passo:last-child{border-bottom:0}
+.passo .n{font-family:var(--serif);font-size:20px;color:var(--gilt);line-height:1.3}
+.passo .t{font-size:15px;font-weight:400;margin-bottom:2px}
+.passo .d{font-size:13.5px;color:var(--soft);line-height:1.6}
+
+.lista-sim li::marker,.lista-nao li::marker{color:var(--gilt)}
+.lista-nao{color:var(--soft)}
+
+/* ---------- galeria ---------- */
+.gal{display:grid;gap:8px;margin:26px 0}
+.gal.duo{grid-template-columns:1fr 1fr}
+.gal.solo{grid-template-columns:1fr}
+.gal figure{margin:0;background:var(--wash);overflow:hidden;aspect-ratio:3/4}
+.gal.solo figure{aspect-ratio:3/2}
+.gal img{width:100%;height:100%;object-fit:cover}
+.gal:empty{display:none}
+
+/* ---------- faq ---------- */
+details{border-bottom:1px solid var(--line);padding:2px 0}
+details summary{
+  list-style:none;cursor:pointer;padding:15px 26px 15px 0;position:relative;
+  font-size:14.5px;font-weight:400;
+}
+details summary::-webkit-details-marker{display:none}
+details summary::after{
+  content:'+';position:absolute;right:2px;top:13px;color:var(--gilt);
+  font-family:var(--serif);font-size:21px;line-height:1;
+}
+details[open] summary::after{content:'–'}
+details .a{padding:0 0 16px;font-size:14px;color:var(--soft);line-height:1.7}
+
+/* ---------- fecho ---------- */
+#fecho{background:var(--ink);color:#EDE8DE;border-bottom:0}
+#fecho .wrap{padding-top:8px;padding-bottom:8px}
+#fecho h2{color:#FAF9F6}
+#fecho .eyebrow{color:var(--gilt)}
+#fecho p{color:#BDB7AA}
+.check{display:flex;gap:12px;align-items:flex-start;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.09);cursor:pointer}
+.check:last-of-type{border-bottom:0}
+.check input{
+  appearance:none;width:19px;height:19px;flex:0 0 19px;margin-top:2px;
+  border:1px solid #6B665C;border-radius:5px;background:transparent;cursor:pointer;position:relative;
+}
+.check input:checked{background:var(--gilt);border-color:var(--gilt)}
+.check input:checked::after{content:'';position:absolute;left:6px;top:2px;width:5px;height:10px;border:solid #161513;border-width:0 2px 2px 0;transform:rotate(43deg)}
+.check input:focus-visible{outline:2px solid var(--gilt);outline-offset:2px}
+.check span{font-size:14px;color:#DCD7CB}
+.btn{
+  display:block;width:100%;text-align:center;text-decoration:none;
+  font-family:var(--sans);font-size:13px;font-weight:400;letter-spacing:.02em;
+  border-radius:11px;padding:17px 18px;margin-top:16px;border:1px solid var(--gilt);
+  background:var(--gilt);color:#161513;cursor:pointer;transition:opacity .2s;
+}
+.btn.ghost{background:transparent;color:var(--gilt)}
+.btn[aria-disabled="true"]{opacity:.32;pointer-events:none}
+.assinatura{text-align:center;padding:34px 22px 46px;background:var(--ink);color:#6B665C;font-size:11px;letter-spacing:.08em}
+.assinatura .fr{font-family:var(--serif);font-style:italic;font-size:16px;color:#9A9488;margin-bottom:10px;letter-spacing:0}
+
+/* ---------- seletor (sem nicho no link) ---------- */
+#seletor{padding:44px 0}
+.portas{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+.portas a{
+  font-size:12px;text-decoration:none;color:#3A382F;background:var(--card);
+  border:1px solid var(--line);border-radius:999px;padding:8px 14px;
+}
+.portas a:hover{border-color:var(--gilt)}
+
+.edite{background:#FFF8E6;border:1px dashed #D9C489;border-radius:10px;padding:13px 15px;font-size:12.5px;color:#6B5426;margin:16px 0}
+.edite b{font-weight:500}
+
+/* ---------- sumário flutuante ---------- */
+#fab{
+  position:fixed;right:18px;bottom:18px;z-index:60;
+  width:52px;height:52px;border-radius:50%;border:1px solid var(--gilt);
+  background:var(--ink);color:var(--gilt);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 22px rgba(22,21,19,.26);transition:transform .2s;
+}
+#fab:active{transform:scale(.94)}
+#fab:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+#fab svg{width:21px;height:21px;stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round}
+
+#veu{position:fixed;inset:0;z-index:58;background:rgba(22,21,19,.42);opacity:0;pointer-events:none;transition:opacity .26s}
+#veu.on{opacity:1;pointer-events:auto}
+
+#sumario{
+  position:fixed;left:0;right:0;bottom:0;z-index:59;
+  background:var(--paper);border-top:1px solid var(--line);
+  border-radius:20px 20px 0 0;padding:8px 0 18px;
+  max-height:76vh;overflow-y:auto;
+  transform:translateY(102%);transition:transform .3s cubic-bezier(.22,1,.36,1);
+  box-shadow:0 -10px 34px rgba(22,21,19,.14);
+}
+#sumario.on{transform:translateY(0)}
+#sumario .puxador{width:38px;height:4px;border-radius:9px;background:var(--line);margin:6px auto 12px}
+#sumario .tit{font-size:8.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);padding:0 24px 8px}
+#sumario a{
+  display:flex;align-items:baseline;gap:12px;text-decoration:none;color:var(--ink);
+  padding:11px 24px;font-size:14px;border-top:1px solid var(--line);
+}
+#sumario a .num{font-family:var(--serif);font-size:13px;color:var(--mute);min-width:16px}
+#sumario a.ativo{background:var(--wash)}
+#sumario a.ativo .num{color:var(--gilt)}
+#sumario .fim{padding:14px 24px 0}
+#sumario .fim a{border:0;padding:0;font-size:12px;color:var(--gold)}
+
+@media (max-width:430px){
+  .hero h1{font-size:31px}
+  h2{font-size:25px}
+  .quote{font-size:19px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<span id="top-topo"></span>
+<header id="top">
+  <div class="bar">
+    <div class="mark">Lumiar<small>Retratos</small></div>
+    <div class="nicho" id="rotulo"></div>
+  </div>
+  <div id="prog"></div>
+</header>
+
+<main id="doc"></main>
+
+<div id="veu"></div>
+<nav id="sumario" aria-label="Sumário">
+  <div class="puxador"></div>
+  <div class="tit">Ir para</div>
+  <div id="sum-itens"></div>
+</nav>
+<button id="fab" aria-label="Abrir sumário" aria-expanded="false">
+  <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+</button>
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   1. CONFIGURAÇÃO — é só aqui que você mexe
+   ══════════════════════════════════════════════════════════════ */
+const CONFIG = {
+  PASTA_FOTOS: 'fotos',            // pasta raiz das imagens
+  EXT: 'jpg',                      // extensão usada nas fotos
+  MAX_FOTOS: 12,                   // tenta 01 até 12 em cada pasta
+
+  LINK_CADASTRO: 'https://lumiarretratos.alboomcrm.com/form_lead/#/index',
+  LINK_AGENDA:   '',               // cole aqui o link do Cal.com ou Calendly
+  WHATSAPP:      '5517991278704',
+
+  VERSAO: '2026.1'
+};
+
+/* ══════════════════════════════════════════════════════════════
+   2. NÚCLEO LUMIAR — escrito uma vez, vale para os 20 nichos
+   ══════════════════════════════════════════════════════════════ */
+const NUCLEO = {
+
+filosofia: `
+<p class="lead">Uma fotografia começa muito antes do primeiro clique.</p>
+<p>Ela começa numa conversa. No que você está vivendo agora. No motivo que fez você procurar um estúdio justamente neste momento da sua vida — e não em outro.</p>
+<p>Vivemos em um mundo acelerado. As pessoas passam por fases, vencem batalhas, constroem famílias, criam empresas, transformam suas vidas — e muitas vezes não percebem a grandeza das próprias histórias.</p>
+<div class="quote">Não fotografamos apenas rostos: fotografamos histórias.<br>Não produzimos apenas imagens: criamos experiências.<br>Não entregamos apenas arquivos: entregamos lembranças que permanecem.</div>
+<p>A Lumiar existe porque pessoas importam. Histórias importam. Memórias importam. E aquilo que importa merece ser lembrado.</p>`,
+
+quemsomos: `
+<p><strong>Lumiar</strong> remete à luz, à revelação, à descoberta. Somos um estúdio de retratos que usa a fotografia como instrumento para revelar histórias, emoções, identidades e conquistas.</p>
+<p>Nosso propósito é transformar histórias, momentos e identidades em retratos capazes de gerar emoção, autoestima, conexão e legado. Nossa promessa é mais simples ainda: toda pessoa que passa pela Lumiar deve sair se sentindo mais vista, mais valorizada e mais conectada com a própria história.</p>
+<h3>O que sustenta cada decisão nossa</h3>
+<div class="card"><h4>Excelência</h4><p>Cada detalhe importa — da montagem da luz ao acabamento do último arquivo.</p></div>
+<div class="card"><h4>Humanização</h4><p>Pessoas vêm antes das fotografias. Ouvimos antes de fotografar.</p></div>
+<div class="card"><h4>Intenção</h4><p>Toda imagem precisa ter propósito. Uma fotografia bonita não é suficiente: ela precisa cumprir uma função.</p></div>
+<div class="card"><h4>Autenticidade</h4><p>Nenhuma fotografia deve parecer artificial ou distante de quem você é.</p></div>`,
+
+autoridade: `
+<p>Não somos um estúdio que fotografa muito. Somos um estúdio que fotografa com método — e que recusa o improviso como forma de trabalho.</p>
+<p>Trabalhamos com agenda limitada por escolha. Cada trabalho aceito ocupa tempo de planejamento, de produção, de curadoria e de tratamento. É isso que nos permite entregar no padrão que prometemos, e é isso que nos impede de atender todo mundo.</p>
+<div class="edite"><b>Editar antes de publicar:</b> substitua este trecho pelos seus números reais — anos de atuação, quantidade de famílias atendidas, formações, prêmios, publicações. Autoridade concreta vale mais do que adjetivo.</div>
+<div class="selo"><div class="t">O que isso significa para você</div><p>Você não está contratando horas de fotografia. Está contratando um processo que já foi percorrido centenas de vezes, com alguém que sabe exatamente o que fazer quando o dia não sai como o planejado.</p></div>`,
+
+metodo: `
+<p>O Método Lumiar é a razão de existir deste documento. Ele começa muito antes da câmera e segue depois da entrega.</p>
+<div class="passos">
+  <div class="passo"><span class="n">1</span><div><div class="t">Escuta</div><div class="d">Entendemos seu momento antes de propor qualquer coisa. Nenhuma proposta nasce antes da conversa.</div></div></div>
+  <div class="passo"><span class="n">2</span><div><div class="t">Planejamento</div><div class="d">Cenário, cores, luz, roteiro e ritmo são definidos antes do dia. Nada é improvisado.</div></div></div>
+  <div class="passo"><span class="n">3</span><div><div class="t">Direção</div><div class="d">Você não precisa saber posar. Conduzimos do início ao fim — é o nosso trabalho, não o seu.</div></div></div>
+  <div class="passo"><span class="n">4</span><div><div class="t">Curadoria</div><div class="d">Só o que está à altura da sua história chega até você. Descartamos sem dó o que não está.</div></div></div>
+  <div class="passo"><span class="n">5</span><div><div class="t">Tratamento</div><div class="d">Edição autoral dentro do nosso padrão artístico, com gerenciamento de cor do início ao fim.</div></div></div>
+  <div class="passo"><span class="n">6</span><div><div class="t">Entrega</div><div class="d">Imagens em alta resolução e, quando contratados, produtos com padrão de laboratório.</div></div></div>
+</div>
+<h3>As perguntas que fazemos antes de cada clique</h3>
+<p>Quem é essa pessoa? O que ela está vivendo? O que esta imagem precisa transmitir? Qual sentimento ela deve provocar? Que lembrança precisa preservar?</p>`,
+
+diferenca: `
+<p>Existem muitas formas de fotografar. A nossa tem três características que você vai perceber logo no primeiro contato.</p>
+<div class="card"><h4>Ninguém é atendido em série</h4><p>Não temos pacote pronto esperando cliente. A proposta nasce da sua história, e por isso ela só existe depois da nossa conversa.</p></div>
+<div class="card"><h4>Você sabe sempre onde está</h4><p>Do primeiro contato à entrega, cada etapa é explicada antes de acontecer. Ninguém fica no escuro esperando notícia.</p></div>
+<div class="card"><h4>A experiência é parte do produto</h4><p>O cuidado no atendimento, no estúdio, na condução e na entrega não é cortesia: é o que estamos vendendo, junto com as imagens.</p></div>
+<div class="selo"><div class="t">O seu negativo digital</div><p>Antigamente, quem tinha o negativo tinha a fotografia. Hoje o arquivo em alta resolução cumpre esse papel: com ele você pode imprimir, ampliar, emoldurar e exibir — e guardar para a vida toda, dentro dos termos da licença de uso.</p></div>`,
+
+reuniao: `
+<p>Antes de qualquer valor, existe uma conversa. Ela acontece no estúdio, dura cerca de uma hora e é onde a sua experiência começa de verdade.</p>
+<p>Ela não é uma apresentação comercial. É uma consultoria: nosso objetivo é compreender sua história, orientar suas decisões e construir a melhor experiência possível para este momento. Se, ao final da conversa, entendermos juntos que a Lumiar é a escolha certa, apresentaremos uma proposta desenvolvida especificamente para você.</p>
+<h3>O que a gente trata nessa conversa</h3>
+<ul class="lista-sim">
+  <li>A sua história e o que motivou este momento</li>
+  <li>O que você espera sentir ao ver as imagens prontas</li>
+  <li>Referências, estilo e a linguagem visual que combina com você</li>
+  <li>Todos os detalhes práticos do dia</li>
+  <li>Os produtos que fazem sentido para o seu caso</li>
+  <li>O investimento e as formas de pagamento</li>
+  <li>A reserva da data</li>
+</ul>
+<p>É por isso que não passamos valores por mensagem. Preço sem contexto não informa nada — nem sobre o que você precisa, nem sobre o que estamos propondo.</p>`,
+
+paraquem: `
+<h3>Esta experiência é para você se</h3>
+<ul class="lista-sim">
+  <li>Você entende fotografia como memória, e não como despesa</li>
+  <li>Você quer ser conduzido, e não deixado por conta própria na frente da câmera</li>
+  <li>Você valoriza um processo cuidadoso mais do que um resultado apressado</li>
+  <li>Você quer imagens que continuem fazendo sentido daqui a vinte anos</li>
+</ul>
+<h3>Provavelmente não é para você se</h3>
+<ul class="lista-nao">
+  <li>O critério principal da sua escolha é o menor preço</li>
+  <li>Você procura muitas fotos rapidamente, sem processo</li>
+  <li>Você prefere resolver tudo por mensagem, sem conversa</li>
+  <li>Você quer contratar hoje e fotografar amanhã</li>
+</ul>
+<p>Dizer isso com clareza é uma forma de respeito. Nem toda proposta serve para todo mundo, e ninguém deveria descobrir isso depois de pagar.</p>`,
+
+faq: [
+  ['Por que vocês não passam valores pelo WhatsApp?','Porque cada trabalho é construído a partir de uma história, e valor sem contexto não diz nada. Na conversa entendemos o que você precisa e apresentamos uma proposta feita para o seu caso.'],
+  ['A reunião tem custo ou compromisso?','Nenhum dos dois. Ela é gratuita e não gera obrigação de contratar.'],
+  ['Preciso levar alguma coisa para a reunião?','Só a sua história, e referências se você tiver. O resto conduzimos por aqui.'],
+  ['Como reservo a minha data?','A data fica reservada com a formalização da contratação. Antes disso, a agenda segue aberta para todos.'],
+  ['Vocês atendem fora de Guaíra?','Sim. Deslocamento e logística entram no planejamento e são combinados na proposta.'],
+  ['Quanto tempo até eu receber as fotografias?','A curadoria leva até 5 dias úteis. Depois da sua seleção, a entrega acontece em até 30 dias úteis.'],
+  ['As fotografias são minhas?','O uso pessoal é seu, por meio da licença de uso. A autoria permanece com a Lumiar por determinação legal — os direitos morais não são transferíveis.']
+]
+};
+
+/* ══════════════════════════════════════════════════════════════
+   3. CAMADA DE CATEGORIA — escrita uma vez por categoria
+   ══════════════════════════════════════════════════════════════ */
+const CATEGORIA = {
+ensaio:{
+  rotulo:'Ensaio',
+  comoFunciona:`
+  <div class="passos">
+    <div class="passo"><span class="n">1</span><div><div class="t">Conversa no estúdio</div><div class="d">Entendemos seu momento, definimos o estilo e construímos a proposta.</div></div></div>
+    <div class="passo"><span class="n">2</span><div><div class="t">Contratação e reserva</div><div class="d">A data fica sua. A partir daqui, o planejamento começa.</div></div></div>
+    <div class="passo"><span class="n">3</span><div><div class="t">Preparação</div><div class="d">Figurinos apresentados com antecedência, cenário e paleta definidos, roteiro montado.</div></div></div>
+    <div class="passo"><span class="n">4</span><div><div class="t">O dia da sessão</div><div class="d">Beleza, direção e fotografia, no seu ritmo, sem pressa e sem improviso.</div></div></div>
+    <div class="passo"><span class="n">5</span><div><div class="t">Curadoria e seleção</div><div class="d">Apresentamos o resultado e escolhemos juntos as imagens que vão ficar.</div></div></div>
+    <div class="passo"><span class="n">6</span><div><div class="t">Tratamento e entrega</div><div class="d">Edição autoral, produtos, e as imagens nas suas mãos.</div></div></div>
+  </div>
+  <div class="selo"><div class="t">Por que os figurinos vêm antes</div><p>Conhecendo as roupas com antecedência, combinamos cenário e cores, planejamos as poses e já pensamos na edição. O dia rende muito mais, porque o tempo fica todo dedicado a fotografar.</p></div>`
+},
+evento:{
+  rotulo:'Evento',
+  comoFunciona:`
+  <div class="passos">
+    <div class="passo"><span class="n">1</span><div><div class="t">Conversa no estúdio</div><div class="d">Entendemos a celebração, a estrutura do dia e o que não pode faltar no registro.</div></div></div>
+    <div class="passo"><span class="n">2</span><div><div class="t">Contratação e reserva</div><div class="d">A data sai da agenda. Datas de evento não se repetem — por isso elas se esgotam cedo.</div></div></div>
+    <div class="passo"><span class="n">3</span><div><div class="t">Planejamento da cobertura</div><div class="d">Cronograma, equipe, locais, deslocamentos, fornecedores e momentos prioritários.</div></div></div>
+    <div class="passo"><span class="n">4</span><div><div class="t">O dia</div><div class="d">Chegamos antes, conhecemos o espaço e trabalhamos com discrição, sem interromper a festa.</div></div></div>
+    <div class="passo"><span class="n">5</span><div><div class="t">Curadoria e seleção</div><div class="d">Organizamos a cobertura inteira e apresentamos o que merece ficar.</div></div></div>
+    <div class="passo"><span class="n">6</span><div><div class="t">Tratamento e entrega</div><div class="d">Edição autoral, álbuns e produtos, dentro dos prazos combinados.</div></div></div>
+  </div>
+  <div class="selo"><div class="t">Por que planejamento importa tanto num evento</div><p>Um evento não tem segunda chance. Cada instante acontece uma vez só. O que garante que nada essencial passe não é sorte no dia: é o cronograma conhecido de antemão, a equipe dimensionada e a logística resolvida antes de todo mundo chegar.</p></div>`
+}
+};
+
+/* ══════════════════════════════════════════════════════════════
+   4. NICHOS — a única parte reescrita. 20 portas.
+   ══════════════════════════════════════════════════════════════ */
+const NICHOS = {
+
+/* ---------- ENSAIOS ---------- */
+gestante:{nome:'Gestante',cat:'ensaio',
+ h1:'Há uma história<br>acontecendo em você.',
+ sub:'Ensaio gestante',
+ abre:'A gestação passa rápido, e a memória dela é curta. As fotografias existem para que você lembre não só de como estava, mas de como se sentia.',
+ blocos:[
+  ['O melhor momento','Entre a 28ª e a 34ª semana a barriga já está desenhada e o corpo ainda responde bem à sessão. Antes disso a barriga pode não aparecer como você imagina; depois, o cansaço costuma pesar.'],
+  ['Conforto vem antes da estética','O ritmo é seu. Fazemos pausas, oferecemos água, ajustamos temperatura e nunca insistimos em uma pose que incomoda. Nenhuma imagem vale desconforto.'],
+  ['Quem pode estar junto','O ensaio pode ser só seu, com o pai do bebê, com os filhos mais velhos ou com a família toda. Cada composição pede um tempo próprio, e isso entra no planejamento.'],
+  ['Figurinos','Trabalhamos com vestidos de estúdio e também com peças suas. Tecidos fluidos favorecem o movimento; peças justas marcam a silhueta. Definimos isso juntos antes do dia.']],
+ faq:[
+  ['Com quantas semanas devo fotografar?','O ideal é entre 28 e 34 semanas. Em gestações de gêmeos, costumamos antecipar.'],
+  ['Preciso levar roupas?','Não é obrigatório. O estúdio tem figurinos, e você pode complementar com peças suas, que combinamos antes.'],
+  ['Meu marido e meus filhos podem participar?','Podem, e faz muita diferença. Só avise antes para reservarmos o tempo de cada composição.'],
+  ['E se eu não estiver me sentindo bem no dia?','Remarcamos. Gestação não é previsível, e isso é tratado com naturalidade aqui.'],
+  ['Já passei das 34 semanas. Ainda dá tempo?','Provavelmente sim. Fale conosco: avaliamos caso a caso e ajustamos o ritmo da sessão.']]},
+
+familia:{nome:'Família',cat:'ensaio',
+ h1:'A sua família,<br>como ela é hoje.',
+ sub:'Ensaio família',
+ abre:'Todo mundo diz que as crianças crescem rápido. Poucas famílias param para registrar como era quando ainda cabiam todos no mesmo colo.',
+ blocos:[
+  ['O horário certo é meio caminho','Com crianças pequenas, fotografamos no melhor horário delas — normalmente cedo. Criança cansada não rende, e a foto mostra.'],
+  ['Ninguém precisa posar','A condução é feita com brincadeira e movimento. As melhores imagens de família raramente vêm de um comando; vêm de um instante entre dois comandos.'],
+  ['Roupas que conversam','Não precisa ser igual: precisa combinar. Definimos uma paleta antes e cada um se veste dentro dela, com conforto.'],
+  ['Quem mais faz parte','Avós, padrinhos e pets são bem-vindos. Só avise antes, porque muda o tempo e o cenário.']],
+ faq:[
+  ['Qual a melhor idade das crianças para fotografar?','Todas funcionam. O que muda é o ritmo da sessão, e nós adaptamos.'],
+  ['Meu filho é muito agitado. Vai dar certo?','Vai. Trabalhamos com pausas e brincadeiras — agitação não é problema, é matéria-prima.'],
+  ['Podemos levar o cachorro?','Sim, com aviso prévio para prepararmos o espaço.'],
+  ['Como escolher as roupas de todo mundo?','Combinamos a paleta antes do dia e orientamos peça por peça, se você quiser.']]},
+
+feminino:{nome:'Feminino',cat:'ensaio',
+ h1:'Você já é.<br>A fotografia só mostra.',
+ sub:'Ensaio feminino',
+ abre:'Muitas mulheres chegam dizendo que não são fotogênicas. Quase sempre o que faltou não foi beleza: foi direção, luz e alguém que olhasse com atenção.',
+ blocos:[
+  ['Beleza profissional','Cabelo e maquiagem fazem parte da experiência e são pensados para fotografia, que exige mais do que a maquiagem do dia a dia.'],
+  ['O estilo é uma escolha sua','Clássico, sensual, editorial, urbano, minimalista. Definimos juntos a linguagem, e nada acontece fora do que você combinou.'],
+  ['Direção do começo ao fim','Você não precisa saber posar. Conduzimos mão, olhar, respiração e postura — e a naturalidade aparece nos intervalos.'],
+  ['Se as fotos forem para o seu trabalho','Muitas mulheres usam esse ensaio também para redes sociais e posicionamento profissional. Diga isso na conversa: a direção muda quando a imagem tem função.']],
+ faq:[
+  ['Não sei posar. Como funciona?','Essa é a nossa parte. Você chega e é conduzida — ninguém aqui espera que você saiba.'],
+  ['O ensaio precisa ser sensual?','Não. O nível de exposição é definido por você, antes, e respeitado integralmente.'],
+  ['Posso levar mais de um figurino?','Pode, e recomendamos. O número de trocas depende do plano contratado.'],
+  ['Posso usar as fotos para divulgar meu trabalho?','O uso comercial tem licença específica, dimensionada conforme a finalidade. Falamos sobre isso na conversa.']]},
+
+casal:{nome:'Casal',cat:'ensaio',
+ h1:'O que existe<br>entre vocês dois.',
+ sub:'Ensaio casal',
+ abre:'Fotografar um casal é traduzir uma relação em imagem. É comum um estar mais à vontade que o outro — isso faz parte, e conduzimos com calma até a naturalidade aparecer.',
+ blocos:[
+  ['Os dois figurinos, juntos','As roupas precisam conversar em cor e em estilo. Alinhamos as duas antes, e não separadamente.'],
+  ['Quem não gosta de foto','Quase todo casal tem um. A sessão é construída considerando isso, com condução gradual e sem exposição forçada.'],
+  ['O dia com folga','Leveza é o que aparece nas melhores imagens. Evite marcar compromisso logo depois.']],
+ faq:[
+  ['Meu companheiro não gosta de ser fotografado.','É o caso mais comum que atendemos. A condução é feita justamente para isso.'],
+  ['Pode ser em ambiente externo?','Pode. O local entra no planejamento e depende de horário e de luz.'],
+  ['Quanto tempo dura?','Depende do plano. Definimos na conversa, junto com a quantidade de figurinos.']]},
+
+'pre-wedding':{nome:'Pré-wedding',cat:'ensaio',
+ h1:'Antes do sim,<br>a história de vocês.',
+ sub:'Ensaio pré-wedding',
+ abre:'O pré-wedding não é um ensaio de casal qualquer. Ele tem função dentro do casamento: é o que vai receber os convidados, virar quadro, abrir o álbum.',
+ blocos:[
+  ['O tempo certo','Fotografe com antecedência suficiente para que os produtos fiquem prontos antes da festa. Quadros, telas e álbuns têm prazo de produção.'],
+  ['O local conta a história','Pode ser o lugar onde vocês se conheceram, um cenário natural ou o estúdio. Cada opção muda logística, horário e figurino.'],
+  ['Produtos para o dia do casamento','Se a ideia é usar as imagens na recepção, isso precisa entrar no planejamento desde a primeira conversa.']],
+ faq:[
+  ['Com quanto tempo de antecedência devo fazer?','Idealmente de 3 a 6 meses antes, para caber produção de produtos e eventuais remarcações.'],
+  ['Dá para fazer em outra cidade?','Dá. Deslocamento e logística entram na proposta.'],
+  ['Se chover no dia do externo?','Remarcamos sem custo. O que a natureza decide não é cobrado de ninguém.']]},
+
+infantil:{nome:'Infantil',cat:'ensaio',
+ h1:'Essa fase<br>não volta.',
+ sub:'Ensaio infantil',
+ abre:'Criança não posa: criança acontece. Nosso trabalho é criar o ambiente certo e estar pronto quando o melhor instante aparecer.',
+ blocos:[
+  ['O horário manda','Fotografamos no melhor momento do dia da criança, respeitando sono e alimentação. Isso vale mais do que qualquer cenário.'],
+  ['O ritmo é dela','Pausas fazem parte. Uma sessão infantil bem conduzida tem mais intervalos do que uma sessão adulta.'],
+  ['Quem acompanha','Um adulto de referência ajuda muito; uma plateia inteira atrapalha. Combinamos isso antes.']],
+ faq:[
+  ['E se meu filho chorar o tempo todo?','Acontece, e não é problema. Fazemos pausas e retomamos — e, se necessário, remarcamos.'],
+  ['Posso levar o brinquedo preferido dele?','Pode, e ajuda bastante. Objetos afetivos rendem imagens verdadeiras.'],
+  ['Qual a duração?','Menor que a de um adulto, por natureza. Definimos na conversa conforme a idade.']]},
+
+corporativo:{nome:'Corporativo',cat:'ensaio',
+ h1:'Sua imagem<br>fala antes de você.',
+ sub:'Retrato corporativo',
+ abre:'Um retrato corporativo não é uma foto bonita: é uma ferramenta de posicionamento. Ele precisa transmitir o que você quer que pensem antes de você abrir a boca.',
+ blocos:[
+  ['Qual é o objetivo','LinkedIn, site institucional, imprensa, material comercial. Cada destino pede enquadramento, fundo e expressão diferentes.'],
+  ['A marca entra na direção','Se sua empresa tem identidade visual definida, trabalhamos dentro dela — cores, sobriedade, formalidade.'],
+  ['Uso e licença','Imagem com finalidade comercial tem licença específica, dimensionada conforme o uso. Isso é definido antes, com clareza.']],
+ faq:[
+  ['Fotografam equipes inteiras?','Sim, com planejamento de tempo por pessoa e padronização de fundo e luz.'],
+  ['Pode ser na minha empresa?','Pode. Avaliamos o espaço e a estrutura de luz necessária.'],
+  ['Preciso de licença para usar no site da empresa?','Sim. O uso comercial é dimensionado conforme a finalidade e definido na proposta.']]},
+
+branding:{nome:'Branding',cat:'ensaio',
+ h1:'A sua marca<br>tem um rosto.',
+ sub:'Ensaio de branding pessoal',
+ abre:'Branding pessoal é fotografia com estratégia. Não se trata de aparecer bem: trata-se de aparecer coerente com o que você vende.',
+ blocos:[
+  ['Estratégia antes da câmera','Definimos público, percepção desejada e onde as imagens vão circular. Isso muda tudo o que vem depois.'],
+  ['Um banco de imagens seu','O objetivo raramente é uma foto: é um conjunto que alimenta redes, site e materiais por meses.'],
+  ['Licença comercial','Como o uso é profissional, a licença é específica e dimensionada conforme a finalidade.']],
+ faq:[
+  ['Quantas imagens preciso?','Depende da sua frequência de publicação. Calculamos isso juntos na conversa.'],
+  ['Vocês ajudam com o conceito?','Sim. A direção criativa faz parte do trabalho, não é serviço à parte.'],
+  ['Posso usar em anúncios pagos?','Pode, com a licença adequada definida na proposta.']]},
+
+/* ---------- EVENTOS ---------- */
+casamento:{nome:'Casamento',cat:'evento',
+ h1:'Um dia inteiro<br>que não se repete.',
+ sub:'Cobertura de casamento',
+ abre:'Uma cobertura de casamento é feita de instantes que acontecem uma vez só. Por isso o planejamento prévio é o que garante que nada essencial passe.',
+ blocos:[
+  ['O cronograma é o mapa','Precisamos conhecer os horários do dia, a lista de momentos e as pessoas que não podem faltar no registro.'],
+  ['Making of e múltiplos locais','Casa, igreja, salão. Cada deslocamento consome tempo de cobertura e precisa ser dimensionado antes.'],
+  ['Equipe','O número de fotógrafos não é detalhe de orçamento: é o que determina o que consegue ser registrado simultaneamente.'],
+  ['Fornecedores e cerimonial','Combinamos com o local e com o cerimonial o acesso da equipe aos espaços, antes do dia.'],
+  ['Produtos que precisam ficar prontos antes','Quadros e álbuns de pré-wedding têm prazo de produção. Isso entra no planejamento desde a primeira conversa.']],
+ faq:[
+  ['Com quanto tempo devo reservar a data?','Quanto antes. Datas de casamento não se repetem e as mais procuradas se esgotam com um ano de antecedência.'],
+  ['Quantos fotógrafos vão?','Depende do porte, dos locais e do cronograma. Definimos na conversa.'],
+  ['Vocês fazem o making of?','Fazemos, e ele é dimensionado dentro do tempo de cobertura contratado.'],
+  ['E se convidados atrapalharem as fotos?','Trabalhamos com discrição para contornar essas situações, que fazem parte de uma celebração com muita gente.'],
+  ['Quando recebo as fotos?','A curadoria leva até 5 dias úteis; a entrega, até 30 dias úteis após a sua seleção.']]},
+
+'15-anos':{nome:'15 anos',cat:'evento',
+ h1:'A festa dela.<br>Do jeito dela.',
+ sub:'15 anos',
+ abre:'Os 15 anos costumam ter duas partes: o book, feito antes com calma, e a festa, que acontece num fôlego só. As duas pedem planejamentos diferentes.',
+ blocos:[
+  ['O book prévio','Feito com antecedência, ele alimenta a decoração, o convite e os produtos da festa. Por isso vem antes, e não depois.'],
+  ['Produtos prontos antes do dia','Quadros, telas e álbuns de recepção têm prazo de produção. Reserve tempo para isso.'],
+  ['Os momentos da noite','Entrada, valsa, homenagens, troca de sapatilha, coreografia. Precisamos da ordem para posicionar a equipe.']],
+ faq:[
+  ['O book está incluso na cobertura?','Depende do plano. Apresentamos as possibilidades na conversa.'],
+  ['Com quanto tempo fazer o book?','De 2 a 3 meses antes, para caber a produção dos produtos.'],
+  ['A festa é em outra cidade. Vocês atendem?','Atendemos. Deslocamento entra no planejamento.']]},
+
+'cha-revelacao':{nome:'Chá revelação',cat:'evento',
+ h1:'O segundo<br>em que todo mundo grita.',
+ sub:'Chá revelação',
+ abre:'Existe um instante só, e ele dura segundos. Toda a cobertura é organizada em função dele.',
+ blocos:[
+  ['O momento da revelação','Precisamos saber exatamente como será: fumaça, balão, bolo, envelope. Cada formato exige um posicionamento diferente da equipe.'],
+  ['As reações','Boa parte do valor está no rosto de quem assiste, não em quem revela. Isso exige mais de um ponto de vista.'],
+  ['Efeitos de produção','Fumaça e confete afetam a luz e a visibilidade. Combinados antes, viram imagem; de surpresa, viram problema.']],
+ faq:[
+  ['Vocês precisam saber o sexo do bebê antes?','Não. Trabalhamos sem essa informação, e ela costuma ficar com quem organiza a surpresa.'],
+  ['Quanto tempo de cobertura?','Depende do tamanho e do formato do evento. Definimos na conversa.'],
+  ['Dá para fazer um mini ensaio no mesmo dia?','Dá, se estiver previsto no planejamento e no tempo contratado.']]},
+
+'cha-de-bebe':{nome:'Chá de bebê',cat:'evento',
+ h1:'A espera<br>também é memória.',
+ sub:'Chá de bebê',
+ abre:'É a última celebração antes de tudo mudar. Vale ter registro de quem estava lá.',
+ blocos:[
+  ['A decoração antes de todo mundo','Chegamos antes para fotografar a mesa e os detalhes ainda intactos.'],
+  ['Convidados e brincadeiras','Indique os momentos que importam e as pessoas que não podem faltar nas imagens.']],
+ faq:[
+  ['Fotografam a mesa e a decoração?','Sim, sempre antes de a festa começar.'],
+  ['Podemos fazer fotos de família no mesmo dia?','Podemos, com tempo previsto no planejamento.']]},
+
+batizado:{nome:'Batizado',cat:'evento',
+ h1:'Um rito<br>que atravessa gerações.',
+ sub:'Batizado',
+ abre:'Cerimônias religiosas pedem discrição. Nosso trabalho é registrar sem interferir no que está acontecendo.',
+ blocos:[
+  ['As regras da igreja','Cada paróquia tem normas próprias sobre circulação e posicionamento. Precisamos conhecê-las antes.'],
+  ['Padrinhos e família','Indique quem não pode faltar nos registros formais, para reservarmos tempo depois da cerimônia.']],
+ faq:[
+  ['Vocês fotografam durante a cerimônia?','Sim, respeitando as regras da igreja e com total discrição.'],
+  ['Dá para fazer as fotos de família depois?','Dá, e recomendamos. Reservamos tempo para isso no planejamento.']]},
+
+'aniversario-infantil':{nome:'Aniversário infantil',cat:'evento',
+ h1:'Um ano inteiro<br>cabe num dia assim.',
+ sub:'Aniversário infantil',
+ abre:'Festa de criança tem ritmo próprio, e nosso papel é acompanhar sem interromper a alegria.',
+ blocos:[
+  ['A decoração antes da festa','Gostamos de registrar a mesa e o cenário antes de os convidados chegarem.'],
+  ['Os momentos-chave','Entrada, parabéns, bolo, apresentações. Precisamos da ordem para não perder nada.'],
+  ['As crianças','A cobertura acompanha a brincadeira. Boa parte das melhores imagens não é combinada.']],
+ faq:[
+  ['Quanto tempo de cobertura preciso?','Costuma acompanhar a duração da festa. Definimos na conversa.'],
+  ['Vocês fotografam os convidados?','Sim, com atenção especial à família e aos convidados que você indicar.']]},
+
+'aniversario-adulto':{nome:'Aniversário adulto',cat:'evento',
+ h1:'Chegar até aqui<br>merece registro.',
+ sub:'Aniversário adulto',
+ abre:'Aniversários redondos costumam reunir gente que não se encontra há anos. Isso, por si só, já justifica a cobertura.',
+ blocos:[
+  ['Homenagens e discursos','Indique os momentos previstos para que a equipe esteja posicionada.'],
+  ['Quem não pode faltar','Uma lista curta de pessoas essenciais evita a lamentação depois da festa.']],
+ faq:[
+  ['Fotografam a decoração?','Sim, antes de a festa começar.'],
+  ['Dá para fazer retratos com os convidados?','Dá, e é comum. Reservamos um tempo específico para isso.']]},
+
+formatura:{nome:'Formatura',cat:'evento',
+ h1:'Um capítulo<br>que se encerra.',
+ sub:'Formatura',
+ abre:'Conquistas merecem registro à altura do esforço que exigiram.',
+ blocos:[
+  ['A ordem da cerimônia','Precisamos saber a sequência e onde a equipe poderá se posicionar.'],
+  ['Retratos individuais e com a família','Combinados com antecedência, para reservarmos tempo antes ou depois da solenidade.']],
+ faq:[
+  ['Fotografam a colação e a festa?','Podemos cobrir as duas etapas. Cada uma tem tempo e logística próprios.'],
+  ['Dá para fazer um ensaio de beca separado?','Dá, e rende imagens muito melhores do que as feitas no corre-corre da cerimônia.']]},
+
+'corporativo-evento':{nome:'Evento corporativo',cat:'evento',
+ h1:'A sua empresa,<br>vista de fora.',
+ sub:'Evento corporativo',
+ abre:'Um evento corporativo gera imagem institucional. Ela precisa servir ao posicionamento da empresa, não só ao arquivo interno.',
+ blocos:[
+  ['A marca no ambiente','Identificamos onde a marca aparece e garantimos registros aproveitáveis para comunicação.'],
+  ['Palestrantes e autoridades','Indique quem precisa ter registro garantido.'],
+  ['Prazo de entrega','Se houver necessidade de material no dia seguinte, isso precisa ser combinado antes.']],
+ faq:[
+  ['Vocês entregam prévias no mesmo dia?','Podemos, mediante combinação prévia no planejamento.'],
+  ['Emitem nota fiscal?','Sim, para pessoa física e jurídica.'],
+  ['A empresa pode usar as imagens em campanha?','Pode, com a licença comercial adequada, definida na proposta.']]},
+
+religioso:{nome:'Evento religioso',cat:'evento',
+ h1:'Fé também<br>se registra.',
+ sub:'Evento religioso',
+ abre:'Celebrações religiosas exigem sensibilidade e silêncio. Registramos sem participar da cena.',
+ blocos:[
+  ['A liturgia','Conhecer a sequência da celebração evita interferência e garante os momentos centrais.'],
+  ['Discrição','Trabalhamos com equipamento silencioso e circulação mínima durante os ritos.']],
+ faq:[
+  ['Vocês respeitam as normas do templo?','Integralmente. Consultamos as regras antes do dia.'],
+  ['Dá para fotografar sem flash?','Sim, e é o nosso padrão em ambientes de celebração.']]},
+
+inauguracao:{nome:'Inauguração',cat:'evento',
+ h1:'O primeiro dia<br>de alguma coisa.',
+ sub:'Inauguração',
+ abre:'Um espaço só está intacto uma vez. Depois disso, ele passa a ser usado — e nunca mais volta a ser assim.',
+ blocos:[
+  ['O espaço vazio','Fotografamos o ambiente antes da chegada dos convidados. Essas imagens costumam ser as mais usadas depois.'],
+  ['Autoridades e convidados','Indique quem precisa de registro garantido.'],
+  ['A marca','Fachada, identidade visual e detalhes do projeto entram no roteiro de cobertura.']],
+ faq:[
+  ['Vocês fotografam o espaço antes do evento?','Sim, e recomendamos fortemente. É o único momento em que ele está intacto.'],
+  ['As imagens servem para o site da empresa?','Servem, com a licença comercial adequada.']]}
+};
+
+/* ══════════════════════════════════════════════════════════════
+   5. MONTAGEM — daqui para baixo você não precisa mexer
+   ══════════════════════════════════════════════════════════════ */
+function slugDoLink(){
+  const q = new URLSearchParams(location.search).get('n');
+  if(q) return q.toLowerCase();
+  if(location.hash) return location.hash.slice(1).toLowerCase();
+  const p = location.pathname.split('/').filter(Boolean).pop() || '';
+  return p.replace(/\.html?$/,'').toLowerCase();
+}
+
+function galeria(slug,de,ate,layout){
+  const cls = layout === 'solo' ? 'gal solo' : 'gal duo';
+  const ids = [];
+  for(let i=de;i<=ate;i++) ids.push(String(i).padStart(2,'0'));
+  return `<div class="${cls}">${ids.map(i=>
+    `<figure><img src="${CONFIG.PASTA_FOTOS}/${slug}/${i}.${CONFIG.EXT}" alt=""
+      onerror="this.parentNode.remove()"></figure>`).join('')}</div>`;
+}
+
+function faqHTML(lista){
+  return lista.map(([q,a])=>
+    `<details><summary>${q}</summary><div class="a">${a}</div></details>`).join('');
+}
+
+function seletor(){
+  const link = s => `<a href="?n=${s}">${NICHOS[s].nome}</a>`;
+  const ens = Object.keys(NICHOS).filter(s=>NICHOS[s].cat==='ensaio').map(link).join('');
+  const evt = Object.keys(NICHOS).filter(s=>NICHOS[s].cat==='evento').map(link).join('');
+  document.getElementById('doc').innerHTML = `
+   <section id="seletor"><div class="wrap">
+     <p class="eyebrow">Antes do Primeiro Clique</p>
+     <h2>Escolha a porta</h2>
+     <p class="sub">Esta tela existe só para você testar. O cliente sempre chega por um link com o nicho.</p>
+     <p class="eyebrow" style="margin-top:22px">Ensaios</p><div class="portas">${ens}</div>
+     <p class="eyebrow" style="margin-top:22px">Eventos</p><div class="portas">${evt}</div>
+   </div></section>`;
+  document.getElementById('rotulo').textContent = 'seleção';
+  document.getElementById('fab').style.display = 'none';
+}
+
+function monta(slug){
+  const N = NICHOS[slug];
+  const C = CATEGORIA[N.cat];
+  document.title = `Antes do Primeiro Clique · ${N.nome} · Lumiar Retratos`;
+  document.getElementById('rotulo').textContent = N.sub;
+
+  const blocos = N.blocos.map(([t,d])=>
+    `<div class="card"><h4>${t}</h4><p>${d}</p></div>`).join('');
+
+  const linkAgenda = CONFIG.LINK_AGENDA ||
+    ('https://wa.me/' + CONFIG.WHATSAPP + '?text=' + encodeURIComponent('Olá! Li o material de ' + N.nome + ' e gostaria de agendar a reunião.'));
+
+  document.getElementById('doc').innerHTML = `
+
+  <section id="capa">
+    <div class="hero">
+      <img src="${CONFIG.PASTA_FOTOS}/${slug}/01.${CONFIG.EXT}" alt=""
+           onerror="this.parentNode.classList.add('vazia');this.remove()">
+      <div class="veil"></div>
+      <div class="tt">
+        <div class="ey">${N.sub}</div>
+        <h1>${N.h1}</h1>
+        <div class="sub">Antes do Primeiro Clique</div>
+      </div>
+    </div>
+    <div class="abaixo"><p>${N.abre}</p></div>
+  </section>
+
+  <section><div class="wrap">
+    <p class="eyebrow">Filosofia</p>
+    <h2>Por que existimos</h2>
+    ${NUCLEO.filosofia}
+    ${galeria(slug,2,3)}
+  </div></section>
+
+  <section><div class="wrap">
+    <p class="eyebrow">Quem somos</p>
+    <h2>A Lumiar Retratos</h2>
+    ${NUCLEO.quemsomos}
+    ${galeria(slug,4,4,'solo')}
+  </div></section>
+
+  <section><div class="wrap">
+    <p class="eyebrow">Autoridade</p>
+    <h2>Por que confiar<br>a sua história a nós</h2>
+    ${NUCLEO.autoridade}
+  </div></section>
+
+  <section><div class="wrap">
+    <p class="eyebrow">O Método Lumiar</p>
+    <h2>Como trabalhamos</h2>
+    ${NUCLEO.metodo}
+    ${galeria(slug,5,6)}
+  </div></section>
+
+  <section><div class="wrap">
+    <p class="eyebrow">A experiência</p>
+    <h2>O que nos torna diferentes</h2>
+    ${NUCLEO.diferenca}
+  </div></section>
+
+  <section><div class="wrap">
+    <p class="eyebrow">Como funciona</p>
+    <h2>Do primeiro contato<br>à entrega</h2>
+    ${C.comoFunciona}
+    ${galeria(slug,7,8)}
+  </div></section>
+
+  <section><div class="wrap">
+    <p class="eyebrow">${N.sub}</p>
+    <h2>O que muda<br>no seu caso</h2>
+    <em class="kick">Cada momento da vida tem as suas particularidades.</em>
+    ${blocos}
+    ${galeria(slug,9,10)}
+  </div></section>
+
+  <section><div class="wrap">
+    <p class="eyebrow">A conversa</p>
+    <h2>A reunião</h2>
+    ${NUCLEO.reuniao}
+  </div></section>
+
+  <section><div class="wrap">
+    <p class="eyebrow">Alinhamento</p>
+    <h2>Para quem é<br>esta experiência</h2>
+    ${NUCLEO.paraquem}
+    ${galeria(slug,11,12)}
+  </div></section>
+
+  <section><div class="wrap">
+    <p class="eyebrow">Perguntas frequentes</p>
+    <h2>Dúvidas de quem<br>vai fazer ${N.nome.toLowerCase()}</h2>
+    ${faqHTML(N.faq)}
+    <h3 style="margin-top:34px">Sobre a Lumiar</h3>
+    ${faqHTML(NUCLEO.faq)}
+  </div></section>
+
+  <section id="fecho"><div class="wrap">
+    <p class="eyebrow">Próximo passo</p>
+    <h2>Vamos conversar<br>sobre a sua história</h2>
+    <p>Se o que você leu faz sentido para o seu momento, o próximo passo é a nossa conversa no estúdio. Antes disso, confirme que este material ficou claro.</p>
+
+    <label class="check"><input type="checkbox" class="ck"><span>Li todo o material.</span></label>
+    <label class="check"><input type="checkbox" class="ck"><span>Entendi como funciona a metodologia da Lumiar.</span></label>
+    <label class="check"><input type="checkbox" class="ck"><span>Desejo seguir para a reunião.</span></label>
+
+    <div id="passos-finais">
+      <p style="font-size:13px;margin-top:24px"><strong style="color:#EDE8DE">Primeiro:</strong> conte a sua história pelo cadastro. É por ele que chegamos à conversa já sabendo do que se trata — e é o que faz a reunião render.</p>
+      <a class="btn" id="btn-cadastro" aria-disabled="true" href="${CONFIG.LINK_CADASTRO}" target="_blank" rel="noopener">Preencher o cadastro</a>
+
+      <p style="font-size:13px;margin-top:26px"><strong style="color:#EDE8DE">Depois:</strong> escolha o dia e o horário que couberem na sua rotina.</p>
+      <a class="btn ghost" id="btn-agenda" aria-disabled="true" href="${linkAgenda}" target="_blank" rel="noopener">Escolher o horário da reunião</a>
+    </div>
+  </div></section>
+
+  <div class="assinatura">
+    <div class="fr">Uma fotografia começa muito antes do primeiro clique.</div>
+    Lumiar Retratos · Guaíra · SP &nbsp;·&nbsp; versão ${CONFIG.VERSAO}
+  </div>`;
+
+  ativaFecho();
+  montaSumario();
+}
+
+function ativaFecho(){
+  const cks = [...document.querySelectorAll('.ck')];
+  const bC = document.getElementById('btn-cadastro');
+  const bA = document.getElementById('btn-agenda');
+
+  const revisa = () => {
+    const ok = cks.every(c=>c.checked);
+    bC.setAttribute('aria-disabled', !ok);
+    bA.setAttribute('aria-disabled', !ok);
+  };
+
+  cks.forEach(c=>c.addEventListener('change',revisa));
+  revisa();
+}
+
+/* ---------- sumário flutuante ---------- */
+function montaSumario(){
+  const secs = [...document.querySelectorAll('#doc section')];
+  const box  = document.getElementById('sum-itens');
+  const fab  = document.getElementById('fab');
+  const pane = document.getElementById('sumario');
+  const veu  = document.getElementById('veu');
+
+  const itens = secs.map((s,i)=>{
+    s.id = 'sec' + i;
+    const ey = s.querySelector('.eyebrow');
+    return { id:s.id, lab: ey ? ey.textContent.trim() : 'Início' };
+  });
+
+  box.innerHTML = itens.map((it,i)=>
+    `<a href="#${it.id}" data-alvo="${it.id}"><span class="num">${String(i+1).padStart(2,'0')}</span><span>${it.lab}</span></a>`
+  ).join('') + `<div class="fim"><a href="#top-topo">Voltar ao início</a></div>`;
+
+  const abre = v => {
+    pane.classList.toggle('on', v);
+    veu.classList.toggle('on', v);
+    fab.setAttribute('aria-expanded', v);
+    document.body.style.overflow = v ? 'hidden' : '';
+  };
+
+  fab.addEventListener('click', ()=>abre(!pane.classList.contains('on')));
+  veu.addEventListener('click', ()=>abre(false));
+  box.addEventListener('click', e=>{
+    const a = e.target.closest('a'); if(!a) return;
+    abre(false);
+  });
+  addEventListener('keydown', e=>{ if(e.key==='Escape') abre(false); });
+
+  const links = [...box.querySelectorAll('a[data-alvo]')];
+  const obs = new IntersectionObserver(entradas=>{
+    entradas.forEach(en=>{
+      if(!en.isIntersecting) return;
+      links.forEach(l=>l.classList.toggle('ativo', l.dataset.alvo === en.target.id));
+    });
+  },{rootMargin:'-45% 0px -50% 0px'});
+  secs.forEach(s=>obs.observe(s));
+}
+
+function progresso(){
+  const h = document.body.scrollHeight - innerHeight;
+  const p = h > 0 ? Math.min(100,(scrollY/h)*100) : 0;
+  document.getElementById('prog').style.width = p + '%';
+}
+
+const slug = slugDoLink();
+if(NICHOS[slug]) monta(slug); else seletor();
+addEventListener('scroll',progresso,{passive:true});
+progresso();
+</script>
+</body>
+</html>
