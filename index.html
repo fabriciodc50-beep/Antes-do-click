@@ -183,6 +183,21 @@ details .a{padding:0 0 16px;font-size:14px;color:var(--soft);line-height:1.7}
 #sumario .fim{padding:14px 24px 0}
 #sumario .fim a{border:0;padding:0;font-size:12px;color:var(--gold)}
 
+.cfg{margin-top:14px;display:grid;gap:14px;max-width:640px}
+.cfg label{display:block;font-size:12px;letter-spacing:.04em;color:var(--soft)}
+.cfg input{
+  display:block;width:100%;margin-top:6px;padding:12px 14px;
+  font:inherit;font-size:13px;color:var(--ink);background:var(--card);
+  border:1px solid var(--line);border-radius:10px;
+}
+.cfg input:focus{outline:2px solid var(--gilt);outline-offset:1px}
+.cfg-acoes{display:flex;flex-wrap:wrap;gap:8px}
+.cfg-acoes button{
+  font:inherit;font-size:12px;padding:11px 16px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--gilt);background:transparent;color:var(--gold);
+}
+.cfg-acoes button.pri{background:var(--gilt);color:var(--ink)}
+#cfg-msg{font-size:12px;color:var(--gold);min-height:18px;margin:0}
 @media (max-width:430px){
   .hero h1{font-size:31px}
   h2{font-size:25px}
@@ -218,17 +233,27 @@ details .a{padding:0 0 16px;font-size:14px;color:var(--soft);line-height:1.7}
 /* ══════════════════════════════════════════════════════════════
    1. CONFIGURAÇÃO — é só aqui que você mexe
    ══════════════════════════════════════════════════════════════ */
+const FONTE_ORIGINAL = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+
 const CONFIG = {
   PASTA_FOTOS: 'fotos',            // pasta raiz das imagens
   EXT: 'jpg',                      // extensão usada nas fotos
   MAX_FOTOS: 12,                   // tenta 01 até 12 em cada pasta
 
-  LINK_CADASTRO: 'https://lumiarretratos.alboomcrm.com/form_lead/#/index',
+  LINK_CADASTRO: 'https://www.crmlumi.com/agendamento/sessao/lumiar-retratos-studio/0007f6f2-7ecb-426d-b406-28356fe5c499',
   LINK_AGENDA:   'https://www.crmlumi.com/agendamento/sessao/lumiar-retratos-studio/0007f6f2-7ecb-426d-b406-28356fe5c499', // agendamento da reunião
   WHATSAPP:      '5517991278704',
 
   VERSAO: '2026.1'
 };
+
+/* links salvos pelo menu de configurações (só neste navegador) */
+const CHAVE_LINKS = 'lumiar_links_v1';
+try{
+  const salvo = JSON.parse(localStorage.getItem(CHAVE_LINKS) || '{}');
+  if(salvo.cadastro) CONFIG.LINK_CADASTRO = salvo.cadastro;
+  if(salvo.agenda)   CONFIG.LINK_AGENDA   = salvo.agenda;
+}catch(e){}
 
 /* ══════════════════════════════════════════════════════════════
    2. NÚCLEO LUMIAR — escrito uma vez, vale para os 20 nichos
@@ -631,6 +656,52 @@ function faqHTML(lista){
     `<details><summary>${q}</summary><div class="a">${a}</div></details>`).join('');
 }
 
+function ativaConfig(){
+  const cad = document.getElementById('cfg-cad');
+  const ag  = document.getElementById('cfg-ag');
+  const msg = t => { document.getElementById('cfg-msg').textContent = t; };
+  cad.value = CONFIG.LINK_CADASTRO;
+  ag.value  = CONFIG.LINK_AGENDA;
+
+  const valida = v => /^https?:\/\/\S+$/i.test(v.trim());
+  const lerCampos = () => {
+    const c = cad.value.trim(), a = ag.value.trim();
+    if(!valida(c) || !valida(a)){ msg('Os dois links precisam começar com https://'); return null; }
+    return { cadastro:c, agenda:a };
+  };
+
+  document.getElementById('cfg-salvar').onclick = () => {
+    const v = lerCampos(); if(!v) return;
+    try{
+      localStorage.setItem(CHAVE_LINKS, JSON.stringify(v));
+      msg('Salvo neste navegador. Abra um nicho para testar os botões. Para valer para os clientes, use “Baixar versão atualizada”.');
+    }catch(e){
+      msg('Este navegador não deixou salvar. Use “Baixar versão atualizada”.');
+    }
+  };
+
+  document.getElementById('cfg-baixar').onclick = () => {
+    const v = lerCampos(); if(!v) return;
+    const q = t => t.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    let html = FONTE_ORIGINAL
+      .replace(/(LINK_CADASTRO:\s*)'[^']*'/, (m,a)=> a + "'" + q(v.cadastro) + "'")
+      .replace(/(LINK_AGENDA:\s*)'[^']*'/,   (m,a)=> a + "'" + q(v.agenda)   + "'");
+    const blob = new Blob([html], {type:'text/html;charset=utf-8'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'antes-do-primeiro-clique.html';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href), 4000);
+    msg('Arquivo baixado com os novos links. Publique esse arquivo no lugar do antigo.');
+  };
+
+  document.getElementById('cfg-reset').onclick = () => {
+    try{ localStorage.removeItem(CHAVE_LINKS); }catch(e){}
+    msg('Voltando ao padrão do arquivo…');
+    location.reload();
+  };
+}
+
 function seletor(){
   const link = s => `<a href="?n=${s}">${NICHOS[s].nome}</a>`;
   const ens = Object.keys(NICHOS).filter(s=>NICHOS[s].cat==='ensaio').map(link).join('');
@@ -642,7 +713,22 @@ function seletor(){
      <p class="sub">Esta tela existe só para você testar. O cliente sempre chega por um link com o nicho.</p>
      <p class="eyebrow" style="margin-top:22px">Ensaios</p><div class="portas">${ens}</div>
      <p class="eyebrow" style="margin-top:22px">Eventos</p><div class="portas">${evt}</div>
+
+     <p class="eyebrow" style="margin-top:38px">Configurações dos botões finais</p>
+     <div class="cfg">
+       <label>Destino do botão “Preencher o cadastro”
+         <input id="cfg-cad" type="url" placeholder="https://..." autocomplete="off"></label>
+       <label>Destino do botão “Escolher o horário da reunião”
+         <input id="cfg-ag" type="url" placeholder="https://..." autocomplete="off"></label>
+       <div class="cfg-acoes">
+         <button type="button" class="pri" id="cfg-salvar">Salvar neste navegador</button>
+         <button type="button" id="cfg-baixar">Baixar versão atualizada</button>
+         <button type="button" id="cfg-reset">Voltar ao padrão do arquivo</button>
+       </div>
+       <p id="cfg-msg"></p>
+     </div>
    </div></section>`;
+  ativaConfig();
   document.getElementById('rotulo').textContent = 'seleção';
   document.getElementById('fab').style.display = 'none';
 }
