@@ -224,7 +224,7 @@ const CONFIG = {
   MAX_FOTOS: 12,                   // tenta 01 até 12 em cada pasta
 
   LINK_CADASTRO: 'https://lumiarretratos.alboomcrm.com/form_lead/#/index',
-  LINK_AGENDA:   '',               // cole aqui o link do Cal.com ou Calendly
+  LINK_AGENDA:   'https://www.crmlumi.com/agendamento/sessao/lumiar-retratos-studio/0007f6f2-7ecb-426d-b406-28356fe5c499', // agendamento da reunião
   WHATSAPP:      '5517991278704',
 
   VERSAO: '2026.1'
@@ -632,9 +632,9 @@ function faqHTML(lista){
 }
 
 function seletor(){
-  const botao = s => `<a href="#" data-porta="${s}">${NICHOS[s].nome}</a>`;
-  const ens = Object.keys(NICHOS).filter(s=>NICHOS[s].cat==='ensaio').map(botao).join('');
-  const evt = Object.keys(NICHOS).filter(s=>NICHOS[s].cat==='evento').map(botao).join('');
+  const link = s => `<a href="?n=${s}">${NICHOS[s].nome}</a>`;
+  const ens = Object.keys(NICHOS).filter(s=>NICHOS[s].cat==='ensaio').map(link).join('');
+  const evt = Object.keys(NICHOS).filter(s=>NICHOS[s].cat==='evento').map(link).join('');
   document.getElementById('doc').innerHTML = `
    <section id="seletor"><div class="wrap">
      <p class="eyebrow">Antes do Primeiro Clique</p>
@@ -645,14 +645,6 @@ function seletor(){
    </div></section>`;
   document.getElementById('rotulo').textContent = 'seleção';
   document.getElementById('fab').style.display = 'none';
-
-  document.getElementById('doc').addEventListener('click', e=>{
-    const a = e.target.closest('[data-porta]');
-    if(!a) return;
-    e.preventDefault();
-    monta(a.dataset.porta);
-    scrollTo(0,0);
-  });
 }
 
 function monta(slug){
@@ -775,7 +767,6 @@ function monta(slug){
     Lumiar Retratos · Guaíra · SP &nbsp;·&nbsp; versão ${CONFIG.VERSAO}
   </div>`;
 
-  document.getElementById('fab').style.display = 'flex';
   ativaFecho();
   montaSumario();
 }
@@ -804,14 +795,14 @@ function montaSumario(){
   const veu  = document.getElementById('veu');
 
   const itens = secs.map((s,i)=>{
-    if(!s.id) s.id = 'sec' + i;
+    s.id = 'sec' + i;
     const ey = s.querySelector('.eyebrow');
     return { id:s.id, lab: ey ? ey.textContent.trim() : 'Início' };
   });
 
   box.innerHTML = itens.map((it,i)=>
     `<a href="#${it.id}" data-alvo="${it.id}"><span class="num">${String(i+1).padStart(2,'0')}</span><span>${it.lab}</span></a>`
-  ).join('') + `<div class="fim"><a href="#top-topo">Voltar ao início</a><br><a href="#" id="trocar-nicho" style="margin-top:8px;display:inline-block">Trocar de nicho</a></div>`;
+  ).join('') + `<div class="fim"><a href="#top-topo">Voltar ao início</a></div>`;
 
   const abre = v => {
     pane.classList.toggle('on', v);
@@ -825,7 +816,6 @@ function montaSumario(){
   box.addEventListener('click', e=>{
     const a = e.target.closest('a'); if(!a) return;
     abre(false);
-    if(a.id === 'trocar-nicho'){ e.preventDefault(); seletor(); scrollTo(0,0); }
   });
   addEventListener('keydown', e=>{ if(e.key==='Escape') abre(false); });
 
